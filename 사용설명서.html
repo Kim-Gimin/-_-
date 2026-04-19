@@ -79,6 +79,7 @@
       <li><a href="#apiregister">API 키 프로그램에 등록하기</a></li>
       <li><a href="#tab1">탭 1 — 현재 포트폴리오</a></li>
       <li><a href="#tab2">탭 2 — 자산 추이 분석</a></li>
+      <li><a href="#journal-portfolio">매매일지 → 포트폴리오 미리보기</a></li>
       <li><a href="#chart">자산 추이 그래프 조작 버튼</a></li>
       <li><a href="#tab3">탭 3 — 백업 및 불러오기</a></li>
       <li><a href="#autosave">브라우저 자동저장</a></li>
@@ -204,7 +205,9 @@
         <li>계좌 추가/이름 변경/삭제 (ISA, 연금, 퇴직연금 등)</li>
         <li>각 계좌 안에서 그룹 추가/삭제 (ETF, 개별주, 채권 등)</li>
         <li>종목 행의 ☰ 핸들을 드래그해 다른 그룹으로 이동 가능</li>
+        <li>계좌 카드 좌측 <strong>⠿ 핸들</strong>을 드래그하면 계좌 표시 순서를 변경할 수 있습니다</li>
       </ul>
+      <div class="tip">&#x1F4A1; <strong>계좌 순서는 자산 추이 그래프의 계좌 버튼 순서와 동기화됩니다.</strong> 계좌 관리에서 순서를 바꾸면 그래프 하단 계좌 선택 버튼도 같은 순서로 정렬됩니다.</div>
       <div class="highlight">
         <strong>&#x1F4B1; USD 매도 우대율 (계좌별)</strong><br><br>
         각 계좌 카드 안에 <code>💱 USD 매도 우대율 [___] %</code> 입력 필드가 있습니다.<br>
@@ -485,19 +488,57 @@
     </div>
 
     <div class="card">
-      <h3>&#x1F4DD; 매매일지 목록</h3>
+      <h3>&#x1F4DD; 매매일지 목록 <span class="new-tag">탭 분리</span></h3>
       <p>입력된 매매일지(tradeJournal) 내역을 표로 확인합니다.</p>
       <ul>
         <li>각 행의 ✎ 버튼으로 수정, ✕ 버튼으로 삭제</li>
         <li>수정/삭제는 매매 기록만 변경합니다. 그래프에 반영하려면 <strong>자동 계산을 다시 실행</strong>하세요.</li>
         <li>날짜·종목·매수/매도 방향, 수량, 단가, 수수료, 원화 거래금액, 적용환율 확인 가능</li>
       </ul>
+      <div class="info">&#x2139;&#xFE0F; 「매매일지 목록」 탭과 「포트폴리오」 탭이 분리되어 있습니다. 위의 탭 버튼으로 전환하세요.</div>
     </div>
   </div>
 
-  <!-- 6 -->
+  <!-- 6 (new) -->
+  <div class="section" id="journal-portfolio">
+    <div class="section-title"><div class="num">6</div>매매일지 → 포트폴리오 미리보기 <span class="new-tag">신규</span></div>
+
+    <div class="card">
+      <h3>&#x1F4C2; 어디서 보나요?</h3>
+      <p>자산 추이 분석 탭 → 「매매일지 → 자산추이 자동 계산」 섹션 하단에 탭 2개가 있습니다.</p>
+      <table>
+        <thead><tr><th>탭</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td>&#x1F4DD; 매매일지 목록</td><td>입력된 전체 매매 내역 (수정·삭제 가능)</td></tr>
+          <tr><td>&#x1F4CA; 포트폴리오</td><td>매매일지 기준 현재 보유 추정 종목·수량·평단가</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CA; 포트폴리오 탭 — 세부 기능</h3>
+      <p>매매일지의 매수·매도 내역을 계산해 현재 보유 중인 것으로 추정되는 종목 목록을 보여줍니다.</p>
+      <table>
+        <thead><tr><th>표시 항목</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>종목명</td><td>매매일지에 입력된 종목명</td></tr>
+          <tr><td>수량</td><td>매수 − 매도 누적 수량</td></tr>
+          <tr><td>평단가</td><td>매수 비용 총합 ÷ 보유 수량 <strong>(수수료 포함)</strong><br>ETF: 수수료 포함 / 개별주식: 수수료 + 증권거래세 포함</td></tr>
+          <tr><td>총 매수금액</td><td>평단가 × 수량</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight">
+        <strong>&#x1F522; 정렬 기능</strong><br>
+        표 헤더(종목명 / 평단가 / 총 매수금액)를 클릭하면 <strong>오름차순 / 내림차순</strong>으로 정렬됩니다.<br>
+        현재 정렬 기준 열에는 ▲ / ▼ 화살표가 표시됩니다.
+      </div>
+      <div class="tip">&#x2705; <strong>포트폴리오 초기화</strong> — 포트폴리오 탭 우측 하단의 「포트폴리오 초기화」 버튼을 누르면 계산된 포트폴리오 캐시를 초기화합니다. 자동 계산을 다시 실행하면 새로 반영됩니다.</div>
+      <div class="warn">&#x26A0;&#xFE0F; 이 포트폴리오는 매매일지 기반 <strong>추정값</strong>입니다. 실제 보유 수량과 다를 수 있으니 최종 확인용으로 사용하세요. 정확한 평단가는 수수료·세금 처리 방식에 따라 증권사 HTS와 차이가 날 수 있습니다.</div>
+    </div>
+
+  <!-- 7 -->
   <div class="section" id="chart">
-    <div class="section-title"><div class="num">6</div>자산 추이 그래프 조작 버튼</div>
+    <div class="section-title"><div class="num">7</div>자산 추이 그래프 조작 버튼</div>
 
     <div class="card">
       <h3>&#x23F1;&#xFE0F; 기간 선택 버튼</h3>
@@ -556,11 +597,12 @@
     </div>
 
     <div class="card">
-      <h3>&#x1F3E0; 계좌 선택 버튼 (하단) &amp; 전체 모드 <span class="new-tag">핵심</span></h3>
+      <h3>&#x1F3E0; 계좌 선택 버튼 (하단) &amp; 전체 모드 &amp; 순서 변경 <span class="new-tag">핵심</span></h3>
       <ul>
         <li>각 계좌 색상 버튼을 클릭해 그래프에 포함/제외 선택</li>
         <li>3개 계좌 중 2개만 선택하면 → 그 2개만 합산한 합산 라인이 표시됨</li>
         <li>「&#x1F500; 합산만 보기」와 함께 쓰면 원하는 계좌 조합의 합산만 깔끔하게 표시</li>
+        <li><strong>계좌 버튼을 드래그</strong>하면 그래프 하단 버튼 순서를 변경할 수 있습니다 (계좌 관리의 순서와 연동)</li>
       </ul>
       <div class="highlight" style="margin-top:14px;">
         <strong style="font-size:15px;">&#x1F3E0; [전체] 버튼 — 자산 성장률 모드</strong><br><br>
@@ -585,9 +627,9 @@
     </div>
   </div>
 
-  <!-- 7 -->
+  <!-- 8 -->
   <div class="section" id="tab3">
-    <div class="section-title"><div class="num">7</div>탭 3 — 백업 및 불러오기</div>
+    <div class="section-title"><div class="num">8</div>탭 3 — 백업 및 불러오기</div>
     <div class="card">
       <h3>&#x1F4E5; CSV 백업 다운로드</h3>
       <p>모든 데이터를 CSV 파일로 내려받아 영구 보관하거나 다른 기기로 이전할 수 있습니다.</p>
@@ -619,9 +661,9 @@
     </div>
   </div>
 
-  <!-- 8 -->
+  <!-- 9 -->
   <div class="section" id="autosave">
-    <div class="section-title"><div class="num">8</div>브라우저 자동저장</div>
+    <div class="section-title"><div class="num">9</div>브라우저 자동저장</div>
     <div class="card">
       <h3>&#x1F5A5;&#xFE0F; 어떻게 동작하나요?</h3>
       <p>데이터가 변경될 때마다 자동으로 브라우저의 로컬 저장소(localStorage)에 저장됩니다.</p>
@@ -655,9 +697,9 @@
     </div>
   </div>
 
-  <!-- 9 -->
+  <!-- 10 -->
   <div class="section" id="csv-format">
-    <div class="section-title"><div class="num">9</div>CSV 입력 형식 정리</div>
+    <div class="section-title"><div class="num">10</div>CSV 입력 형식 정리</div>
 
     <div class="card">
       <h3>&#x1F4CB; 매매일지 (자동 계산용)</h3>
@@ -724,9 +766,9 @@
     </div>
   </div>
 
-  <!-- 10 -->
+  <!-- 11 -->
   <div class="section" id="faq">
-    <div class="section-title"><div class="num">10</div>자주 묻는 질문 (FAQ)</div>
+    <div class="section-title"><div class="num">11</div>자주 묻는 질문 (FAQ)</div>
 
     <div class="card">
       <h3>&#x2753; 자동 계산을 눌렀는데 오류가 납니다</h3>
@@ -799,6 +841,35 @@
     <div class="card">
       <h3>&#x2753; 매매일지 목록에서 수정하면 그래프도 바뀌나요?</h3>
       <p>매매일지 목록의 수정/삭제는 <strong>매매 내역 기록만</strong> 변경합니다. 그래프에 반영하려면 <strong>자동 계산을 다시 실행</strong>하세요.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 포트폴리오 미리보기에서 평단가가 HTS와 다른 이유는?</h3>
+      <p>이 앱의 평단가는 <strong>매수 체결가 + 수수료 (+ 개별주식은 증권거래세)</strong>까지 포함한 실질 매수원가입니다.</p>
+      <ul>
+        <li>ETF: (매수금액 + 수수료) ÷ 수량</li>
+        <li>개별주식: (매수금액 + 수수료 + 세금) ÷ 수량</li>
+      </ul>
+      <div class="tip">&#x2705; 증권사 HTS는 수수료를 포함하지 않은 순 체결가를 평단가로 표시하는 경우가 많습니다. 이 앱의 평단가 방식이 실제 손익 기준으로 더 정확합니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 매매일지 포트폴리오 탭이 안 보여요 / 비어 있어요</h3>
+      <p>「매매일지 → 자산추이 자동 계산」 섹션에서 <strong>자동 계산을 한 번 실행</strong>해야 포트폴리오 데이터가 생성됩니다.</p>
+      <ul>
+        <li>매매일지를 입력하고 「자동 계산」 버튼을 클릭하세요</li>
+        <li>포트폴리오 초기화 후 다시 계산하지 않은 경우에도 비어 보일 수 있습니다</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 계좌 순서를 바꾸면 그래프 버튼 순서도 바뀌나요?</h3>
+      <p><strong>네.</strong> 현재 포트폴리오 탭의 계좌 관리에서 계좌 카드 좌측 ⠿ 핸들을 드래그해 순서를 바꾸면, 자산 추이 탭의 그래프 하단 계좌 선택 버튼 순서도 자동으로 반영됩니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 매매일지 목록과 포트폴리오 탭 전환은 어떻게 하나요?</h3>
+      <p>자산 추이 분석 탭 하단 섹션에 「📝 매매일지 목록」과 「📊 포트폴리오」 두 개의 탭 버튼이 있습니다. 클릭해서 전환합니다.</p>
     </div>
 
     <div class="card">
