@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All For One 자산관리 — 사용 설명서</title>
+  <style>
+    :root {
+      --bg: #0f1923; --surface: #1a2636; --surface2: #1e2d40; --accent: #f59e0b; --accent2: #38bdf8;
+      --green: #4ade80; --red: #f87171; --purple: #a78bfa; --fg: #e8f2ff; --muted: #8ba3bc; --line: rgba(255,255,255,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--fg); font-family: 'Segoe UI','Apple SD Gothic Neo',sans-serif; font-size: 15px; line-height: 1.7; }
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
+    .hero { background: linear-gradient(135deg,#1a3a5c 0%,#0f1923 100%); border: 1px solid rgba(245,158,11,0.3); border-radius: 16px; padding: 40px 36px; margin-bottom: 40px; text-align: center; }
+    .hero h1 { font-size: 30px; font-weight: 900; color: var(--accent); margin-bottom: 8px; }
+    .hero p { color: var(--muted); font-size: 14px; }
+    .badge { display: inline-block; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: var(--accent); border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 700; margin: 12px 4px 0; }
+    .badge.green { background: rgba(74,222,128,0.15); border-color: rgba(74,222,128,0.4); color: var(--green); }
+    .badge.blue { background: rgba(56,189,248,0.15); border-color: rgba(56,189,248,0.4); color: var(--accent2); }
+    .toc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; margin-bottom: 36px; }
+    .toc h2 { font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 12px; letter-spacing: .05em; text-transform: uppercase; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 5px 0; font-size: 14px; }
+    .section { margin-bottom: 52px; }
+    .section-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; color: var(--fg); border-bottom: 2px solid rgba(245,158,11,0.4); padding-bottom: 10px; margin-bottom: 20px; }
+    .section-title .num { background: var(--accent); color: #000; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; flex-shrink: 0; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+    .card h3 { font-size: 15px; font-weight: 700; color: var(--accent2); margin-bottom: 10px; }
+    .card p { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+    .card ul, .card ol { padding-left: 20px; color: var(--muted); font-size: 14px; }
+    .card li { margin: 5px 0; }
+    code { background: rgba(56,189,248,0.12); color: var(--accent2); padding: 1px 6px; border-radius: 5px; font-family: monospace; font-size: 13px; }
+    .highlight { background: rgba(245,158,11,0.1); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--fg); margin: 12px 0; line-height: 1.9; }
+    .warn { background: rgba(248,113,113,0.1); border-left: 3px solid var(--red); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--fg); margin: 12px 0; }
+    .tip { background: rgba(74,222,128,0.08); border-left: 3px solid var(--green); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--fg); margin: 12px 0; }
+    .info { background: rgba(56,189,248,0.08); border-left: 3px solid var(--accent2); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--fg); margin: 12px 0; }
+    .new-tag { display: inline-block; background: rgba(74,222,128,0.2); color: var(--green); border: 1px solid rgba(74,222,128,0.4); border-radius: 10px; font-size: 10px; font-weight: 700; padding: 1px 7px; vertical-align: middle; margin-left: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+    th { background: rgba(255,255,255,0.06); color: var(--muted); font-weight: 700; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+    td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--fg); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .steps { }
+    .step { display: flex; gap: 14px; margin-bottom: 14px; }
+    .step-num { background: var(--accent2); color: #000; width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; margin-top: 2px; }
+    .step-body { flex: 1; font-size: 14px; color: var(--muted); }
+    .step-body strong { color: var(--fg); }
+    .phase-box { background: var(--surface2); border: 1px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 16px 20px; margin: 14px 0; }
+    .phase-box .phase-title { font-size: 15px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+    .btn-pill { display: inline-block; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 700; border: 2px solid; margin: 2px; }
+    .btn-accent { border-color: var(--accent); color: var(--accent); background: rgba(245,158,11,0.1); }
+    .btn-purple { border-color: var(--purple); color: var(--purple); background: rgba(167,139,250,0.1); }
+    .btn-green { border-color: var(--green); color: var(--green); background: rgba(74,222,128,0.1); }
+    .btn-blue { border-color: var(--accent2); color: var(--accent2); background: rgba(56,189,248,0.1); }
+    footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 60px; border-top: 1px solid var(--line); padding-top: 20px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>&#x1F4CA; All For One 자산관리</h1>
+    <p>포트폴리오 수익률 · 일별 자산 추이 분석 · 매매일지 자동계산 · 미국주식 달러/원화 이중 손익 · 백업/복원</p>
+    <div>
+      <span class="badge">설치 불필요</span>
+      <span class="badge green">&#x1F4BE; 브라우저 자동저장</span>
+      <span class="badge blue">&#x1F4F6; 실시간 종가 조회</span>
+      <span class="badge">무료</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h2>&#x1F4CB; 목차</h2>
+    <ol>
+      <li><a href="#start">파일 받기 및 실행 방법</a></li>
+      <li><a href="#setup">초기 설정 — CORS 확장 프로그램 &amp; API 키 발급</a></li>
+      <li><a href="#apiregister">API 키 프로그램에 등록하기</a></li>
+      <li><a href="#tab1">탭 1 — 현재 포트폴리오</a></li>
+      <li><a href="#tab2">탭 2 — 자산 추이 분석</a></li>
+      <li><a href="#chart">자산 추이 그래프 조작 버튼</a></li>
+      <li><a href="#tab3">탭 3 — 백업 및 불러오기</a></li>
+      <li><a href="#autosave">브라우저 자동저장</a></li>
+      <li><a href="#csv-format">CSV 입력 형식 정리</a></li>
+      <li><a href="#faq">자주 묻는 질문</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <div class="section" id="start">
+    <div class="section-title"><div class="num">1</div>파일 받기 및 실행 방법</div>
+    <div class="card">
+      <h3>&#x1F4C1; HTML 파일 받기</h3>
+      <p>이 도구는 단일 HTML 파일(<code>거의다되는_자산관리_v2.html</code>) 하나로 동작합니다. 별도 설치나 서버가 필요 없습니다.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><strong>파일을 전달받는다</strong> — 이메일, 카카오톡, USB, 구글 드라이브 등 어떤 방법으로든 <code>.html</code> 파일을 받습니다.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><strong>원하는 폴더에 저장</strong> — 바탕화면, 내 문서 등 어디든 상관없습니다.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><strong>크롬 브라우저로 열기</strong> — 파일을 더블 클릭하거나 크롬에 드래그 앤 드롭합니다.</div></div>
+      </div>
+      <div class="info">&#x2139;&#xFE0F; 기본 포트폴리오 입력 및 수동 자산 기록은 인터넷 없이도 가능합니다. 단, <strong>실시간 종가 자동 조회 및 매매일지 자동 계산</strong> 기능을 사용하려면 인터넷 + CORS 확장 프로그램 + API 키가 필요합니다.</div>
+    </div>
+    <div class="card">
+      <h3>&#x1F310; 권장 브라우저</h3>
+      <table>
+        <thead><tr><th>브라우저</th><th>지원</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>Chrome (크롬)</td><td>&#x2705; 최적</td><td><strong>가장 권장</strong> — CORS 확장 프로그램 지원</td></tr>
+          <tr><td>Edge (엣지)</td><td>&#x2705; 지원</td><td>크롬 확장 프로그램 사용 가능</td></tr>
+          <tr><td>Safari / Firefox</td><td>&#x26A0;&#xFE0F; 부분 지원</td><td>CORS 확장 프로그램 지원 제한적</td></tr>
+          <tr><td>Internet Explorer</td><td>&#x274C; 미지원</td><td>사용 불가</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="section" id="setup">
+    <div class="section-title"><div class="num">2</div>초기 설정 — CORS 확장 프로그램 &amp; API 키 발급</div>
+
+    <div class="info">&#x2139;&#xFE0F; <strong>왜 필요한가요?</strong><br>
+    이 프로그램은 별도 서버 없이 개인 브라우저에서 모든 계산과 조회를 처리합니다. 그런데 브라우저 보안 정책(CORS)상, 한국거래소 등 외부 사이트 데이터를 직접 가져오는 것이 기본적으로 차단됩니다.<br><br>
+    따라서 실시간 종가 조회 및 매매일지 자동 계산을 사용하려면 아래 두 가지가 반드시 필요합니다:<br>
+    <strong>① CORS 우회 확장 프로그램</strong> (브라우저 보안 임시 해제)<br>
+    <strong>② 공공데이터포털 API 키</strong> (공식 주식·ETF 데이터 호출권)</div>
+
+    <div class="phase-box">
+      <div class="phase-title">1️⃣ 1단계: CORS 확장 프로그램 설치</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><strong>크롬 웹스토어</strong>에 접속합니다.<br><a href="https://chrome.google.com/webstore" target="_blank">chrome.google.com/webstore</a></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><strong>「Allow CORS: Access-Control-Allow-Origin」</strong>을 검색하여 브라우저에 추가합니다.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body">설치 후 브라우저 우측 상단 <strong>퍼즐 조각 🧩 아이콘</strong>을 눌러 해당 확장을 찾습니다.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body">큰 전원 버튼을 눌러 <strong>ON (아이콘이 컬러로 변함)</strong> 상태로 만들어 줍니다.</div></div>
+      </div>
+      <div class="warn">🚨 <strong>보안 주의</strong> — 이 확장이 켜져 있으면 브라우저 보안이 낮아진 상태입니다. 자산관리 툴을 다 쓰고 나면 반드시 <strong>다시 OFF</strong>로 돌려두세요. 특히 인터넷 뱅킹·결제 시에는 꼭 끄고 사용하세요.</div>
+      <div class="tip" style="margin-top:14px;">
+        <strong>🛡️ 가장 안전한 방법 — 수동 ON/OFF 토글</strong><br><br>
+        로컬 파일(<code>file:///C:/...</code>)은 CORS 확장 화이트리스트 등록이 불가능합니다. 결론적으로 <strong>수동 ON/OFF 방식이 유일하고 가장 안전한 방법</strong>입니다:
+        <ol style="margin:10px 0 0 18px;padding:0;line-height:2;">
+          <li><strong>평소 (은행 업무, 웹서핑)</strong> → 확장 프로그램 아이콘 <strong>회색 (OFF)</strong> 유지</li>
+          <li><strong>자산관리 할 때</strong> → HTML 파일을 열고, 데이터 업데이트 버튼 누르기 직전에 <strong>주황색 (ON)</strong></li>
+          <li><strong>완료 후</strong> → 다시 클릭 → <strong>회색 (OFF)</strong></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="phase-box">
+      <div class="phase-title">2️⃣ 2단계: 공공데이터포털 API 키 발급받기 (무료)</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><a href="https://www.data.go.kr" target="_blank"><strong>공공데이터포털 (data.go.kr)</strong></a>에 접속하여 <strong>회원가입 및 로그인</strong>합니다.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body">검색창에 아래 두 가지를 각각 검색하여 <strong>「활용신청」</strong> 버튼을 클릭합니다.<br><br>
+          &#x1F50E; <code>금융위원회_주식시세정보</code> — 일반 국내 주식 종가 조회용<br>
+          &#x1F50E; <code>금융위원회_증권상품시세정보</code> — ETF 종가 조회용</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><strong>마이페이지 → 오픈API → 개발계정</strong>으로 이동합니다.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body">신청한 API를 클릭하면 <strong>일반 인증키 (Encoding)</strong> 문자열이 보입니다. 이 긴 영어+숫자 조합의 키를 복사합니다.</div></div>
+      </div>
+      <div class="warn">🚨 <strong>동기화 시간 1~2시간 소요</strong> — 발급 직후 바로 사용하면 "키 오류"가 날 수 있으니, <strong>1~2시간 후에 테스트</strong>하세요.</div>
+      <div class="warn">🚨 <strong>키 유출 금지</strong> — API 키는 본인만의 고유 비밀번호입니다. 키가 입력된 화면을 캡처해 블로그에 올리거나 GitHub에 공개하면 타인이 사용해 호출 한도 초과(429 에러)가 발생할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="section" id="apiregister">
+    <div class="section-title"><div class="num">3</div>API 키 프로그램에 등록하기</div>
+    <div class="card">
+      <h3>&#x1F511; API 키 입력 위치</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body">HTML 파일을 크롬으로 엽니다. <strong>(CORS 확장 프로그램이 ON 상태여야 합니다.)</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body">상단 메뉴에서 <strong>「2) 자산 추이 분석」</strong> 탭을 클릭합니다.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body">하단의 <strong>「&#x1F4CB; 매매일지 → 자산추이 자동 계산」</strong> 섹션을 클릭해 펼칩니다.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body">복사해 둔 API 키를 각 칸에 붙여넣습니다:<br><br>
+          • <strong>국내주식 종가 조회용</strong>: 「금융위원회_주식시세정보」 키<br>
+          • <strong>ETF 종가 조회용</strong>: 「금융위원회_증권상품시세정보」 키<br>
+          <span style="color:var(--muted);font-size:13px;">(두 서비스에서 발급된 키가 동일하다면 같은 키를 양쪽에 입력하면 됩니다.)</span></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body">옆의 <strong>「저장」</strong> 버튼을 클릭합니다. 이후 자동으로 저장되어 다음에 열 때도 유지됩니다.</div></div>
+      </div>
+      <div class="tip">&#x2705; <strong>종목명 띄어쓰기 엄수</strong> — ETF 매매일지 입력 시 <code>TIGER K방산우주</code>처럼 공식 명칭의 띄어쓰기를 정확히 맞춰야 API가 올바르게 종목을 찾아옵니다.</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="section" id="tab1">
+    <div class="section-title"><div class="num">4</div>탭 1 — 현재 포트폴리오</div>
+
+    <div class="card">
+      <h3>&#x1F4CA; KPI 카드 (상단 요약)</h3>
+      <p>포트폴리오 탭 최상단에 5개 카드가 한 줄로 표시됩니다.</p>
+      <table>
+        <thead><tr><th>카드</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td>종목 수</td><td>현재 보유 중인 종목 개수</td></tr>
+          <tr><td>투자원금</td><td>매입단가 × 보유수량 합계</td></tr>
+          <tr><td>평가금액</td><td>현재가 × 보유수량 합계 (원화 환산)</td></tr>
+          <tr><td>평가손익</td><td>평가금액 − 투자원금</td></tr>
+          <tr><td>수익률</td><td>평가손익 ÷ 투자원금 × 100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F3E6; 계좌 / 그룹 관리</h3>
+      <p>종목을 계좌별·그룹별로 분류 관리합니다. 상단 「🏦 계좌 / 그룹 관리」 카드를 클릭해 펼칩니다.</p>
+      <ul>
+        <li>계좌 추가/이름 변경/삭제 (ISA, 연금, 퇴직연금 등)</li>
+        <li>각 계좌 안에서 그룹 추가/삭제 (ETF, 개별주, 채권 등)</li>
+        <li>종목 행의 ☰ 핸들을 드래그해 다른 그룹으로 이동 가능</li>
+      </ul>
+      <div class="highlight">
+        <strong>&#x1F4B1; USD 매도 우대율 (계좌별)</strong><br><br>
+        각 계좌 카드 안에 <code>💱 USD 매도 우대율 [___] %</code> 입력 필드가 있습니다.<br>
+        기본값은 <strong>100%</strong> (현재 환율 그대로 적용). 예를 들어 <code>99.7</code>을 입력하면 현재 환율의 99.7%로 계산됩니다.<br><br>
+        값을 변경하면:<br>
+        • 오른쪽에 <strong>→ 실제 적용환율(원)이 즉시 표시</strong>됩니다 (예: → 1,382.4원)<br>
+        • 잠깐 <strong>「✓ 적용됨」</strong> 초록색 문구가 표시되며, 포트폴리오 손익이 즉시 재계산됩니다.<br>
+        • 계좌를 삭제하거나 이름을 변경하면 우대율도 함께 갱신/삭제됩니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CB; 포트폴리오 상세</h3>
+      <p>계좌/그룹별로 보유 종목이 그룹 헤더 아래 정렬됩니다. 그룹 행의 ▶ 를 클릭하면 접고 펼칠 수 있습니다.</p>
+      <table>
+        <thead><tr><th>항목</th><th>설명</th><th>예시</th></tr></thead>
+        <tbody>
+          <tr><td>종목명</td><td>표시될 이름 (자유롭게)</td><td>삼성전자</td></tr>
+          <tr><td>종목코드</td><td>실시간 조회용 코드 (선택)</td><td>005930 / 0166N0 / AAPL</td></tr>
+          <tr><td>수량</td><td>보유 주수 (소수점 가능)</td><td>100</td></tr>
+          <tr><td>매입단가</td><td>1주당 평균 구매가</td><td>65000</td></tr>
+          <tr><td>현재가</td><td>현재 1주 가격 (직접 입력 또는 자동 조회)</td><td>72000</td></tr>
+          <tr><td>계좌</td><td>어느 계좌에 속하는지</td><td>ISA, 퇴직연금</td></tr>
+          <tr><td>그룹</td><td>종목 분류</td><td>국내ETF, 개별주</td></tr>
+        </tbody>
+      </table>
+      <ul style="margin-top:10px;">
+        <li>종목 행 우측 ✎ 버튼으로 수정, ✕ 버튼으로 삭제</li>
+        <li>체크박스로 여러 종목을 선택 후 <strong>「선택 삭제」</strong> 버튼으로 일괄 삭제 가능</li>
+        <li>☰ 핸들 드래그로 행 순서 및 그룹 간 이동 가능</li>
+        <li>종목코드 입력 후 「&#x1F504; 실시간 조회」 버튼으로 현재가 자동 갱신 (CORS + 인터넷 필요)</li>
+        <li>체크박스로 여러 종목을 선택 후 <strong>「그룹 이동」</strong> 버튼으로 그룹 일괄 변경 가능</li>
+      </ul>
+      <div class="warn">&#x26A0;&#xFE0F; <strong>미국 주식(AAPL, TSLA 등) 실시간 조회는 CORS 확장 프로그램이 ON 상태여야 합니다.</strong><br>
+        Yahoo Finance / 네이버 해외주식 API가 브라우저 보안 정책(CORS)으로 차단되기 때문입니다.<br>
+        CORS 확장이 꺼져 있으면 미국 주식 현재가 조회가 실패하고 기존 값이 유지됩니다.<br>
+        국내 주식은 CORS 프록시 서버를 자동 경유하므로 확장 없이도 대부분 작동합니다.
+      </div>
+      <div class="tip">&#x1F4CA; <strong>「🔄 실시간 조회」가 가져오는 가격 기준</strong><br>
+        <table style="margin-top:8px;">
+          <thead><tr><th>상황</th><th>반환 가격</th><th>데이터 출처</th></tr></thead>
+          <tbody>
+            <tr><td>🕘 장중 (평일 9:00~15:30 KST)</td><td><strong>현재 체결가</strong> (조회 시점 가격)</td><td>네이버 실시간 API → 공공 KRX API (fallback)</td></tr>
+            <tr><td>🌙 장 마감 후 / 주말 · 공휴일</td><td><strong>마지막 거래일 종가</strong></td><td>네이버 종가 API → 공공 KRX API (fallback)</td></tr>
+            <tr><td>🇺🇸 미국 주식 (장중/장후 모두)</td><td><strong>최근 체결가</strong></td><td>Yahoo Finance → 네이버 해외주식 (fallback), CORS 확장 필요</td></tr>
+            <tr><td>⚠️ NXT(넥스트레이드) 연장 거래</td><td><strong>미지원</strong></td><td>NXT 전용 API 미공개 — 수동 입력만 가능</td></tr>
+          </tbody>
+        </table>
+        <span style="color:var(--muted);font-size:12px;">※ 포트폴리오 손익은 입력된 현재가 기준으로 계산되므로, 정확한 종가 반영을 원하면 장 마감 후(15:30 이후) 조회를 권장합니다.</span>
+      </div>
+      <div class="warn">&#x26A0;&#xFE0F; <strong>앱의 가격이 HTS(증권사 앱)와 다를 수 있는 이유</strong>
+        <table style="margin-top:8px;">
+          <thead><tr><th>원인</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>NXT(넥스트레이드) 종가</strong></td>
+              <td>넥스트레이드는 KRX와 별도 거래소로 종가가 다를 수 있습니다. 앱은 <strong>KRX 정규장 종가</strong>만 지원하며 NXT 종가는 반영되지 않습니다.</td>
+            </tr>
+            <tr>
+              <td><strong>시간외 단일가</strong></td>
+              <td>정규장 종가(15:30)와 시간외 단일가(15:30~16:00) 사이의 차이입니다. HTS가 시간외 단일가를 표시 중이라면 앱의 종가와 다를 수 있습니다.</td>
+            </tr>
+            <tr>
+              <td><strong>수정주가 적용 여부</strong></td>
+              <td>배당락·액면분할 등 이후 수정주가를 적용하는 경우 HTS와 다를 수 있습니다. 네이버 API는 수정주가 기준을 따릅니다.</td>
+            </tr>
+            <tr>
+              <td><strong>미국 주식 환율·시장 기준</strong></td>
+              <td>Pre/After Market 가격이 정규장 종가와 다를 수 있고, Yahoo Finance의 regularMarketPrice 기준을 사용합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+        <strong>확인 방법:</strong> 네이버 금융(finance.naver.com)에서 종목을 검색해 나오는 <strong>종가</strong>와 앱의 값을 비교하세요. 네이버 금융 종가와 앱이 일치한다면 앱은 정상 동작 중입니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F1FA;&#x1F1F8; 미국 주식 손익 — 원화 / 달러 이중 표시 <span class="new-tag">핵심</span></h3>
+      <p>종목코드가 영숫자 6자리가 아닌 경우 (예: <code>AAPL</code>, <code>TSLA</code>) 미국 주식으로 자동 인식합니다.</p>
+      <table>
+        <thead><tr><th>표시 항목</th><th>계산 방식</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>원화 손익</strong> (상단 큰 숫자)</td>
+            <td>(현재가USD × 매도환율) − (평단가USD × 매수환율) × 수량<br>
+              <span style="color:var(--muted);">매도환율 = 현재 USD/KRW × 계좌 우대율(%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>달러 손익</strong> (하단 작은 숫자)</td>
+            <td>(현재가USD − 평단가USD) × 수량</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x1F4A1; 매수 시 환율은 종목 추가 시 입력한 <strong>매수 환율(avgFxRate)</strong>을 사용합니다. 계좌 관리에서 우대율을 설정하면 매도 시 환율이 자동 적용됩니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CA; 비중 / 손익 분석 차트</h3>
+      <p>도넛 차트(비중)와 바 차트(손익)를 제공합니다.</p>
+      <table>
+        <thead><tr><th>버튼</th><th>표시 내용</th></tr></thead>
+        <tbody>
+          <tr><td>평가손익</td><td>종목별 평가 손익 금액 바 차트</td></tr>
+          <tr><td>비중</td><td>종목별 평가금액 비중 도넛 차트</td></tr>
+          <tr><td>투자원금</td><td>종목별 투자원금 비중 도넛 차트</td></tr>
+          <tr><td>평가금액</td><td>종목별 현재 평가금액 바 차트</td></tr>
+          <tr><td>수익률</td><td>종목별 수익률(%) 바 차트</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x1F4A1; 차트 우측 「범위:」 드롭다운에서 계좌/그룹을 선택해 특정 계좌만 분석할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="section" id="tab2">
+    <div class="section-title"><div class="num">5</div>탭 2 — 자산 추이 분석</div>
+
+    <div class="card">
+      <h3>&#x1F3AF; 상단 전광판 (Hero 수익 요약)</h3>
+      <p>탭 전환 후 가장 상단에 현재 선택된 계좌·기간의 수익 요약이 표시됩니다.</p>
+      <table>
+        <thead><tr><th>항목</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td>기간 평가손익</td><td>선택 기간 동안의 평가 변동분</td></tr>
+          <tr><td>기간 실현손익</td><td>선택 기간 동안 매도로 확정된 손익</td></tr>
+          <tr><td>기간 총수익금</td><td>평가손익 + 실현손익 합계</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x2705; 각 항목 옆 괄호 안의 % 수치는 현재 선택한 <strong>TWR / 단순 방식</strong>에 따라 자동 전환됩니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4C1; 계좌 관리</h3>
+      <p>자산 추이는 계좌 단위로 관리됩니다.</p>
+      <ul>
+        <li>계좌 추가 / 이름 변경 / 색상 변경 / 삭제 가능</li>
+        <li>하단 계좌 버튼을 클릭해 그래프에 표시할 계좌 선택/해제</li>
+        <li>여러 계좌 선택 시 합산 그래프(흰색 라인)가 자동으로 추가됨</li>
+      </ul>
+      <p style="margin-top:10px;">계좌 성격에 따라 <strong>수익률 계산 방식</strong>을 개별 설정할 수 있습니다.</p>
+      <table style="margin-top:8px;">
+        <thead><tr><th>방식</th><th>특징</th><th>추천 계좌</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="btn-pill btn-blue" style="font-size:11px;">&#x1F4CA; TWR</span></td>
+            <td>입출금이 수익률에 미치는 영향을 제거한 <strong>시간가중수익률(Time-Weighted Return)</strong>. 증권사 표준 방식.</td>
+            <td>일반 주식·ETF 계좌</td>
+          </tr>
+          <tr>
+            <td><span class="btn-pill btn-accent" style="font-size:11px;">&#x1F4C9; 단순</span></td>
+            <td>기간 시작점과 끝점의 자산을 직접 비교. 매매 후 결제 지연(T+2)으로 데이터가 일시적으로 튀는 계좌에 적합.</td>
+            <td>퇴직연금 DC 계좌</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight">
+        <strong>&#x1F501; TWR / 단순 토글 버튼</strong><br><br>
+        그래프 하단의 <span class="btn-pill btn-blue" style="font-size:11px;">📊 TWR</span> / <span class="btn-pill btn-accent" style="font-size:11px;">📉 단순</span> 버튼을 클릭하면:<br>
+        • <strong>그래프의 누적수익률(%) 라인</strong>이 해당 방식으로 재계산됩니다<br>
+        • <strong>상단 전광판의 평가손익·실현손익·총수익금 옆 % 수치</strong>도 동시에 전환됩니다<br>
+        • 범례도 「누적수익률 TWR (%)」↔「누적수익률 단순 (%)」로 변경됩니다
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CB; 매매일지 → 자산추이 자동 계산</h3>
+      <p>매매 내역을 입력하면 공공데이터포털 API로 종가를 자동 조회해 일별 자산총액·평가손익·실현손익을 계산합니다.</p>
+      <div class="highlight">
+        입력 형식: <code>날짜, 종목코드, 종목명, 매수/매도, 수량, 단가, 수수료(선택)</code><br><br>
+        예 (국내 ETF):<br>
+        <code>2025-01-03, 379800, KODEX미국S&amp;P500, 매수, 138, 20023, 0</code><br>
+        <code>2025-11-03, 379800, KODEX미국S&amp;P500, 매도, 138, 22208, 0</code>
+      </div>
+      <ul>
+        <li>CSV 파일 직접 불러오기 지원 (📂 버튼)</li>
+        <li>텍스트창에 직접 붙여넣기 가능 (엑셀 → 복사 → 붙여넣기)</li>
+        <li>「기존 데이터 덮어쓰기」 체크 시 기존 일별 기록 전체 교체</li>
+        <li>진행률 표시줄로 조회 진행 상황 실시간 확인</li>
+      </ul>
+      <div class="highlight" style="border-color:var(--green);background:rgba(74,222,128,0.07);">
+        <strong style="color:var(--green);">&#x26A1; 증분 업데이트 (자동 최적화)</strong><br><br>
+        「기존 데이터 덮어쓰기」를 <strong>체크 해제</strong>한 상태에서 자동 계산을 실행하면, <strong>이미 기록된 마지막 날짜를 자동 감지</strong>해 그 이후 날짜의 종가만 API로 조회합니다.<br><br>
+        예: 기존 데이터가 4월 10일까지 있으면 → API는 <strong>4월 10일 ~ 오늘</strong>만 조회<br>
+        <ul style="margin:6px 0 0 16px;line-height:2;">
+          <li>매일 매매 후 버튼 한 번으로 당일 데이터만 빠르게 추가 가능</li>
+          <li>내부 계좌 상태(현금잔고·평단가·수량)는 첫날부터 재시뮬레이션하여 정확도 유지</li>
+          <li>전체 데이터를 처음부터 다시 계산하고 싶을 때는 「기존 데이터 덮어쓰기」를 체크하고 실행</li>
+        </ul>
+      </div>
+      <div class="warn">&#x26A0;&#xFE0F; 자동 계산을 사용하려면 반드시 <strong>CORS 확장 프로그램 ON + API 키 등록</strong>이 완료된 상태여야 합니다. (2~3단계 참조)</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F5D3;&#xFE0F; 데이터 관리 — 직접 입력</h3>
+      <p>매매일지 없이 날짜별 자산 현황을 직접 입력합니다.</p>
+      <table>
+        <thead><tr><th>항목</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>날짜</td><td>숫자 8자리 자동 포맷: <code>20260401</code> → <code>2026-04-01</code></td></tr>
+          <tr><td>전일 자산총액</td><td>전날 기준 자산 합계. 「전일 자산 자동입력」으로 채울 수 있음</td></tr>
+          <tr><td>당일 자산총액</td><td>오늘 기준 자산 합계</td></tr>
+          <tr><td>평가손익</td><td>당일 하루 평가 변동분</td></tr>
+          <tr><td>실현손익</td><td>매도로 확정된 손익 (없으면 0)</td></tr>
+          <tr><td>매매비용</td><td>수수료, 세금 등 (없으면 0)</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x1F4A1; 같은 날짜를 다시 입력하면 자동으로 <strong>덮어쓰기(수정)</strong>됩니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4E5; 데이터 관리 — CSV 일괄 입력</h3>
+      <div class="highlight">
+        형식: <code>날짜,전일자산,당일자산,평가손익,실현손익,매매비용</code><br>
+        예: <code>2026-04-01,10000000,10200000,200000,0,0</code>
+      </div>
+      <ul>
+        <li>헤더 행 자동 무시 / 쉼표·탭 구분 모두 지원</li>
+        <li>같은 날짜가 이미 있으면 덮어씁니다</li>
+        <li>처리 결과(추가/수정/스킵 건수) 표시</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4B0; 원금(납입금) 관리 <span class="new-tag">개별 삭제 지원</span></h3>
+      <p>투자 원금(납입/출금) 내역을 관리합니다. 그래프의 원금 라인 기준이 됩니다.</p>
+      <table>
+        <thead><tr><th>항목</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>날짜</td><td>숫자 8자리 자동 포맷 지원</td></tr>
+          <tr><td>금액</td><td>입금 양수, 출금 음수 (예: <code>-500000</code>)</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>각 행 왼쪽 체크박스로 선택 → <strong>「선택 삭제」</strong> 로 골라서 삭제 가능</li>
+        <li>헤더 체크박스로 전체 선택/해제</li>
+        <li>기간 범위 입력 후 해당 기간 전체 삭제도 가능</li>
+      </ul>
+      <div class="highlight">CSV 형식: <code>날짜,금액</code> &nbsp;&nbsp; 예: <code>2026-01-01,5000000</code></div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4B3; 배당금 / 이자 관리 <span class="new-tag">개별 삭제 지원</span></h3>
+      <p>배당금·이자 수입 내역을 별도로 관리합니다. 총수익금 계산에 반영됩니다.</p>
+      <table>
+        <thead><tr><th>항목</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>날짜</td><td>숫자 8자리 자동 포맷 지원</td></tr>
+          <tr><td>금액</td><td>배당/이자 수입액 (양수)</td></tr>
+          <tr><td>메모</td><td>종목명, 종류 등 자유 메모</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>각 행 왼쪽 체크박스로 선택 → <strong>「선택 삭제」</strong> 로 골라서 삭제 가능</li>
+        <li>헤더 체크박스로 전체 선택/해제</li>
+        <li>기간 범위 입력 후 해당 기간 전체 삭제도 가능</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CB; 일별 원천 데이터 표</h3>
+      <p>같은 데이터를 두 관점으로 볼 수 있도록 표가 2개로 나뉘어 있습니다. 각 표는 기본적으로 접혀 있습니다.</p>
+      <table>
+        <thead><tr><th>표</th><th>용도</th><th>주요 열</th></tr></thead>
+        <tbody>
+          <tr><td>&#x1F4CA; 증권사 포맷 상세 손익</td><td>미래에셋 등 증권사 화면과 직접 대조</td><td>전일 자산총액, 당일 자산총액, 평가손익, 실현손익, 매매비용, 총손익</td></tr>
+          <tr><td>&#x1F4C8; 원금 및 수익률 추적</td><td>이 앱 고유의 원금/수익률 흐름 확인</td><td>당일 자산총액, 순수원금, 누적수익률, 투자원금, 투자수익률</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CA; 집계표</h3>
+      <ul>
+        <li><strong>월별 집계표</strong> — 월별 총손익·수익률 자동 집계</li>
+        <li><strong>연간 집계표</strong> — 연도별 합산</li>
+      </ul>
+      <div class="tip">&#x1F4A1; 퍼센트 분모를 직접 지정하거나 「자동 설정」을 누르면 수익률(%)이 계산됩니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4DD; 매매일지 목록</h3>
+      <p>입력된 매매일지(tradeJournal) 내역을 표로 확인합니다.</p>
+      <ul>
+        <li>각 행의 ✎ 버튼으로 수정, ✕ 버튼으로 삭제</li>
+        <li>수정/삭제는 매매 기록만 변경합니다. 그래프에 반영하려면 <strong>자동 계산을 다시 실행</strong>하세요.</li>
+        <li>날짜·종목·매수/매도 방향, 수량, 단가, 수수료, 원화 거래금액, 적용환율 확인 가능</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="section" id="chart">
+    <div class="section-title"><div class="num">6</div>자산 추이 그래프 조작 버튼</div>
+
+    <div class="card">
+      <h3>&#x23F1;&#xFE0F; 기간 선택 버튼</h3>
+      <table>
+        <thead><tr><th>버튼</th><th>동작</th></tr></thead>
+        <tbody>
+          <tr><td>올해 / 이달 / 3달 / 6달 / 1년 / 전체</td><td>해당 기간의 데이터만 그래프에 표시</td></tr>
+          <tr><td>직접 설정</td><td>시작일·종료일을 직접 입력 후 <strong>「적용」</strong> 버튼 클릭</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x2705; <strong>기간 동기화:</strong> 기간 버튼을 클릭하면, 차트뿐만 아니라 상단 전광판의 수익금과 수익률도 <strong>선택한 기간 동안만의 성적</strong>으로 자동 계산되어 바뀝니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4C9; 손익 그래프</h3>
+      <table>
+        <thead><tr><th>레이어</th><th>표현 방식</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td>손익 금액</td><td>꺾은선</td><td>일별/월별/연간 총손익, 평가손익, 실현손익 중 선택한 항목</td></tr>
+          <tr><td>누적수익률 (%)</td><td>꺾은선</td><td>TWR 또는 단순 방식으로 계산된 누적 수익률 (우측 축)</td></tr>
+          <tr><td>일별 수익률 (%)</td><td>반투명 막대</td><td>하루 단위 변동폭: <code>당일 총손익 ÷ 전일 자산총액 × 100</code></td></tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x1F4A1; 막대는 배경처럼 잔잔하게 깔리고, 누적수익률 선은 그 위에 유지되어 하루 변동성과 장기 추세를 동시에 볼 수 있습니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4A1; 그래프 모드 토글 버튼</h3>
+      <table>
+        <thead><tr><th>버튼</th><th>꺼짐 (기본)</th><th>켜짐</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="btn-pill btn-accent">&#x1F4C8; 수익만 보기</span></td>
+            <td>자산 총액 + 원금 점선 그래프</td>
+            <td>각 계좌별 (자산 − 원금) 순수익 그래프만 표시. 원금 라인 제거.</td>
+          </tr>
+          <tr>
+            <td><span class="btn-pill btn-purple">&#x1F500; 합산만 보기</span></td>
+            <td>개별 계좌 라인 + 합산 라인 모두 표시</td>
+            <td>합산 라인만 표시. 여러 계좌 중 원하는 조합만 선택해 합산 가능.</td>
+          </tr>
+          <tr>
+            <td><span class="btn-pill btn-green">〰️ 스무스</span></td>
+            <td>계단식(직각) 그래프 (기본)</td>
+            <td>부드러운 곡선 그래프. 누르면 「&#x1F4D0; 직각」으로 표시 변경.</td>
+          </tr>
+          <tr>
+            <td><span class="btn-pill btn-blue">&#x1F4CA; TWR</span> / <span class="btn-pill btn-accent">&#x1F4C9; 단순</span></td>
+            <td>TWR(시간가중수익률) 방식</td>
+            <td>단순 방식 (기간 시작~끝 자산 직접 비교). 그래프 + 전광판 % 모두 전환.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x1F4A1; 세 버튼은 독립적으로 동작하며 자유롭게 조합 가능합니다.<br>
+      예: 「수익만 보기 ON」 + 「합산만 보기 ON」 + 「스무스 ON」 → 합산 순수익 곡선만 표시</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F3E0; 계좌 선택 버튼 (하단) &amp; 전체 모드 <span class="new-tag">핵심</span></h3>
+      <ul>
+        <li>각 계좌 색상 버튼을 클릭해 그래프에 포함/제외 선택</li>
+        <li>3개 계좌 중 2개만 선택하면 → 그 2개만 합산한 합산 라인이 표시됨</li>
+        <li>「&#x1F500; 합산만 보기」와 함께 쓰면 원하는 계좌 조합의 합산만 깔끔하게 표시</li>
+      </ul>
+      <div class="highlight" style="margin-top:14px;">
+        <strong style="font-size:15px;">&#x1F3E0; [전체] 버튼 — 자산 성장률 모드</strong><br><br>
+        모든 계좌를 한꺼번에 선택하면 상단 전광판이 <strong>자산 성장률 모드</strong>로 자동 전환됩니다.
+      </div>
+      <table style="margin-top:8px;">
+        <thead><tr><th>지표</th><th>의미</th><th>포함 항목</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>총자산 성장률</strong></td>
+            <td>기간 시작 대비 전체 재산이 몇 % 불어났는지</td>
+            <td>투자 수익 <strong>+</strong> 내가 직접 입금한 돈(적금 등) 모두 포함</td>
+          </tr>
+          <tr>
+            <td><strong>현재 자산 내 수익 비중</strong></td>
+            <td>지금 내 재산 중 '순수 투자 수익'이 차지하는 비율</td>
+            <td>기말 총자산 중 입출금 제외 순수 운용 수익의 비중</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x1F4A1; 예시: 현재 자산이 1억원이고 수익 비중이 12%면 → 내 재산 1억 중 1,200만원은 투자로 벌어들인 순수 수익입니다.</div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="section" id="tab3">
+    <div class="section-title"><div class="num">7</div>탭 3 — 백업 및 불러오기</div>
+    <div class="card">
+      <h3>&#x1F4E5; CSV 백업 다운로드</h3>
+      <p>모든 데이터를 CSV 파일로 내려받아 영구 보관하거나 다른 기기로 이전할 수 있습니다.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><strong>탭 3</strong> 클릭 → <strong>「&#x1F4E5; CSV 백업 다운로드」</strong> 버튼 클릭</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><code>자산관리_백업_날짜.csv</code> 파일이 자동 다운로드됩니다</div></div>
+      </div>
+      <p>백업 파일에는 <strong>일별 기록 · 납입 내역 · 배당/이자 내역 · 매매일지 · 포트폴리오 종목 · 계좌별 설정(우대율 포함)</strong>이 모두 포함됩니다.</p>
+    </div>
+    <div class="card">
+      <h3>&#x1F4E4; CSV 복원 (불러오기)</h3>
+      <div class="warn">&#x26A0;&#xFE0F; 복원 시 현재 입력된 데이터가 모두 덮어씌워집니다.</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body">「파일 선택」 클릭 → 백업 <code>.csv</code> 파일 선택</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><strong>「&#x1F4E4; 복원하기」</strong> 클릭 → 데이터 복원 완료</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>&#x1F4CA; 엑셀 내보내기</h3>
+      <p>모든 데이터를 xlsx(엑셀) 파일로 내보낼 수 있습니다. 포트폴리오·일별기록·원금·배당·매매일지가 각 시트로 분리됩니다.</p>
+    </div>
+    <div class="card">
+      <h3>&#x1F504; 다른 기기로 이전하기</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body">기존 기기에서 CSV 백업 다운로드</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body">백업 파일을 새 기기로 전송 (이메일, 카카오톡, 구글 드라이브 등)</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body">새 기기의 크롬에서 HTML 파일 열기 → 탭 3에서 복원</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="section" id="autosave">
+    <div class="section-title"><div class="num">8</div>브라우저 자동저장</div>
+    <div class="card">
+      <h3>&#x1F5A5;&#xFE0F; 어떻게 동작하나요?</h3>
+      <p>데이터가 변경될 때마다 자동으로 브라우저의 로컬 저장소(localStorage)에 저장됩니다.</p>
+      <ul>
+        <li>데이터 변경 후 <strong>약 1초 내</strong>에 자동 저장</li>
+        <li>저장 시 상단 우측에 <code>&#x1F4BE; 00:00:00 자동저장됨</code> 표시</li>
+        <li>파일을 닫았다가 다시 열면 <strong>자동으로 복원</strong></li>
+        <li>저장 항목: 계좌·일별기록·납입내역·배당/이자내역·매매일지·포트폴리오·계좌별 우대율·API 키</li>
+      </ul>
+      <div class="tip">&#x2705; 브라우저를 껐다 켜도 데이터가 유지됩니다!</div>
+    </div>
+    <div class="card">
+      <h3>&#x26A0;&#xFE0F; 주의사항</h3>
+      <ul>
+        <li><strong>같은 컴퓨터, 같은 브라우저에서만</strong> 유지됩니다</li>
+        <li>브라우저의 「방문 기록/캐시 삭제」를 하면 저장 데이터가 지워질 수 있습니다</li>
+        <li>다른 기기로 이전 시 반드시 <strong>CSV 백업(탭 3)</strong>을 이용하세요</li>
+        <li>중요한 데이터는 CSV 백업을 주기적으로 받아두는 것을 권장합니다</li>
+        <li>&#x1F1FA;&#x1F1F8; <strong>미국 주식 실시간 조회(빠른 동기화 포함)는 CORS 확장 프로그램 ON이 필수입니다.</strong> Yahoo Finance 등 해외 API는 브라우저 CORS 정책으로 직접 호출이 차단되며, 내부 프록시 서버로 자동 우회하지만 미국 주식은 확장 없이는 실패할 수 있습니다.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>&#x1F4BE; 수동 저장 / 초기화 (탭 3)</h3>
+      <table>
+        <thead><tr><th>버튼</th><th>동작</th></tr></thead>
+        <tbody>
+          <tr><td>&#x1F4BE; 지금 저장</td><td>즉시 강제 저장</td></tr>
+          <tr><td>&#x1F5D1; 로컬 저장 초기화</td><td>브라우저 저장 데이터 삭제 (다음 열 때 빈 상태로 시작). 현재 화면 데이터는 유지됨.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="section" id="csv-format">
+    <div class="section-title"><div class="num">9</div>CSV 입력 형식 정리</div>
+
+    <div class="card">
+      <h3>&#x1F4CB; 매매일지 (자동 계산용)</h3>
+      <table>
+        <thead><tr><th>열</th><th>항목</th><th>예시</th><th>필수</th></tr></thead>
+        <tbody>
+          <tr><td>1열</td><td>날짜</td><td>2026-04-01</td><td>&#x2705;</td></tr>
+          <tr><td>2열</td><td>종목코드(티커)</td><td>379800 / AAPL</td><td>&#x2705;</td></tr>
+          <tr><td>3열</td><td>종목명</td><td>KODEX미국S&amp;P500</td><td>&#x2705;</td></tr>
+          <tr><td>4열</td><td>매수/매도</td><td>매수 / 매도 / buy / sell</td><td>&#x2705;</td></tr>
+          <tr><td>5열</td><td>수량</td><td>138</td><td>&#x2705;</td></tr>
+          <tr><td>6열</td><td>단가</td><td>20023</td><td>&#x2705;</td></tr>
+          <tr><td>7열</td><td>수수료</td><td>0</td><td>선택</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight">
+        국내주식/ETF: 영숫자 6자리 코드 (예: <code>379800</code>, <code>005930</code>, <code>0166N0</code>)<br>
+        미국주식: 6자리가 아닌 티커 (예: <code>AAPL</code>, <code>TSLA</code>, <code>NVDA</code>)<br>
+        매도 수량은 양수로 입력 (음수 사용 ❌, 앱이 「매도」 구분자로 처리)
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4CA; 자산 추이 데이터 (데이터 관리 CSV 일괄 입력)</h3>
+      <table>
+        <thead><tr><th>열</th><th>항목</th><th>예시</th><th>필수</th></tr></thead>
+        <tbody>
+          <tr><td>1열</td><td>날짜</td><td>2026-04-01</td><td>&#x2705;</td></tr>
+          <tr><td>2열</td><td>전일 자산총액</td><td>10000000</td><td>&#x2705;</td></tr>
+          <tr><td>3열</td><td>당일 자산총액</td><td>10200000</td><td>&#x2705;</td></tr>
+          <tr><td>4열</td><td>평가손익</td><td>200000 (손실: -50000)</td><td>&#x2705;</td></tr>
+          <tr><td>5열</td><td>실현손익</td><td>0</td><td>선택</td></tr>
+          <tr><td>6열</td><td>매매비용</td><td>0</td><td>선택</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4B0; 원금 데이터 (원금 관리 CSV 일괄 입력)</h3>
+      <table>
+        <thead><tr><th>열</th><th>항목</th><th>예시</th><th>필수</th></tr></thead>
+        <tbody>
+          <tr><td>1열</td><td>날짜</td><td>2026-01-15</td><td>&#x2705;</td></tr>
+          <tr><td>2열</td><td>금액</td><td>입금: 5000000 / 출금: -500000</td><td>&#x2705;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4A1; 날짜 빠른 입력 팁</h3>
+      <div class="highlight"><code>20260401</code> 입력 → 자동으로 <code>2026-04-01</code> 변환<br>8자리 완성 시 다음 칸으로 자동 포커스 이동</div>
+      <p style="margin-top:10px;color:var(--muted);">원금 관리 · 배당/이자 관리 · 데이터 관리 모든 날짜 입력 칸에서 동일하게 동작합니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x1F4A1; 엑셀에서 CSV 만드는 방법</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body">엑셀에서 데이터 입력 (날짜는 YYYY-MM-DD 형식)</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body">해당 셀 범위 드래그 → <strong>복사 (Ctrl+C)</strong></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body">앱의 CSV 입력창에 <strong>붙여넣기 (Ctrl+V)</strong></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body">「가져오기」 버튼 클릭</div></div>
+      </div>
+      <div class="tip">&#x2705; 엑셀 복사본은 탭 구분자로 붙여지는데, 이 앱은 탭·쉼표 모두 지원합니다.</div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="section" id="faq">
+    <div class="section-title"><div class="num">10</div>자주 묻는 질문 (FAQ)</div>
+
+    <div class="card">
+      <h3>&#x2753; 자동 계산을 눌렀는데 오류가 납니다</h3>
+      <ul>
+        <li>CORS 확장 프로그램이 <strong>ON 상태</strong>인지 확인 (아이콘이 컬러)</li>
+        <li>API 키가 올바르게 입력·저장되어 있는지 확인</li>
+        <li>API 키 발급 직후라면 <strong>1~2시간 후에 재시도</strong>하세요</li>
+        <li>인터넷 연결 상태 확인</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 429 에러가 뜹니다 (Too Many Requests)</h3>
+      <p>공공데이터포털 API 호출 한도를 초과했거나, API 키가 외부에 노출되어 타인이 사용 중일 가능성이 있습니다.</p>
+      <ul>
+        <li>잠시(5~10분) 기다린 후 재시도</li>
+        <li>API 키를 외부에 공유한 적이 있다면 공공데이터포털에서 <strong>키를 재발급</strong>받으세요</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 브라우저를 껐다 켜면 데이터가 사라지나요?</h3>
+      <p><strong>아니요.</strong> 브라우저 자동저장으로 같은 컴퓨터·브라우저에서 파일을 다시 열면 자동 복원됩니다.</p>
+      <div class="warn">&#x26A0;&#xFE0F; 다른 기기·다른 브라우저·캐시 삭제 시에는 사라질 수 있습니다. 중요한 데이터는 <strong>CSV 백업(탭 3)</strong>도 주기적으로 받아두세요.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 미국 주식을 입력하면 원화와 달러 손익이 다 나오나요?</h3>
+      <p>네. 종목코드가 영숫자 6자리가 아닌 경우 (예: <code>AAPL</code>) 미국 주식으로 자동 인식되어 포트폴리오 상세 손익란에 <strong>원화 손익(큰 숫자)</strong>과 <strong>달러 손익(작은 글씨)</strong>이 함께 표시됩니다.</p>
+      <div class="tip">&#x2705; 계좌 관리에서 계좌별 <strong>USD 매도 우대율(%)</strong>을 설정하면 매도 시 적용환율이 자동 반영됩니다. 값 변경 즉시 옆에 실제 적용 환율이 표시되며 「✓ 적용됨」 문구가 잠깐 나타납니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; TWR과 단순 방식의 차이가 뭔가요?</h3>
+      <table>
+        <thead><tr><th>방식</th><th>특징</th><th>언제 쓰나</th></tr></thead>
+        <tbody>
+          <tr><td><strong>TWR</strong> (시간가중수익률)</td><td>입출금 시점의 영향을 제거. 펀드·증권사 표준.</td><td>적립식 투자, 정기 납입 계좌</td></tr>
+          <tr><td><strong>단순</strong></td><td>기간 시작~끝 자산 직접 비교. 직관적.</td><td>결제 지연(T+2) 영향을 받는 계좌, 퇴직연금</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">&#x2705; 그래프 하단의 버튼을 눌러 언제든지 전환할 수 있으며, 그래프 라인과 상단 전광판 % 수치가 모두 함께 바뀝니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 날짜를 어떻게 입력하나요?</h3>
+      <div class="highlight"><code>20260401</code> 입력 → 자동으로 <code>2026-04-01</code> 변환 / 8자리 완성 시 다음 칸으로 자동 이동</div>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 같은 날짜를 또 입력하면 어떻게 되나요?</h3>
+      <p>기존 데이터를 자동으로 <strong>덮어씁니다(수정)</strong>. 중복 추가되지 않습니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 원금 관리 / 배당 관리에서 특정 행만 지우려면?</h3>
+      <p>각 행 왼쪽의 <strong>체크박스</strong>를 클릭해 선택한 뒤, 「선택 삭제」 버튼을 누르면 선택한 행만 삭제됩니다. 헤더 체크박스로 전체 선택/해제도 가능합니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 계좌를 여러 개 사용하려면?</h3>
+      <p>자산 추이 분석 탭 → 「계좌 추가」로 계좌를 추가합니다. 각 계좌에 독립적으로 데이터를 입력하고, 하단 버튼에서 여러 계좌를 선택하면 합산 그래프를 볼 수 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; ETF와 일반 주식 API 키가 다른가요?</h3>
+      <p>공공데이터포털에서 발급받는 <strong>인증키(Encoding) 문자열은 두 서비스 모두 동일</strong>합니다. 같은 키를 주식용·ETF용 두 칸에 모두 입력해도 됩니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 매매일지 목록에서 수정하면 그래프도 바뀌나요?</h3>
+      <p>매매일지 목록의 수정/삭제는 <strong>매매 내역 기록만</strong> 변경합니다. 그래프에 반영하려면 <strong>자동 계산을 다시 실행</strong>하세요.</p>
+    </div>
+
+    <div class="card">
+      <h3>&#x2753; 기간 총수익금은 플러스(+)인데, 기간 평가손익이 마이너스(-)로 나와요!</h3>
+      <p>오류가 아니라 <strong>'수익 실현(익절)'을 아주 잘하셨다는 증거</strong>입니다!</p>
+      <div class="highlight">
+        평가손익 상태이던 주식을 <strong>매도해 수익을 확정</strong> 지으면, 그 금액이 <strong>「실현손익」</strong>으로 넘어갑니다.<br>
+        이때 평가손익에서는 해당 금액이 빠져나가 마이너스로 표시될 수 있습니다.<br><br>
+        &#x2705; <strong>기간 총수익금 = 평가손익 + 실현손익</strong> — 두 항목을 합친 값이 실제로 번 돈입니다.
+      </div>
+      <ul>
+        <li><strong>평가손익 −300만 + 실현손익 +500만 = 총수익금 +200만원</strong> → 200만원을 번 것입니다.</li>
+        <li>익절 후 남은 보유 주식의 평가손익이 내려가면 평가 항목이 마이너스가 될 수 있습니다.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    All For One 자산관리 — 사용 설명서<br>
+    모든 데이터는 브라우저 내에서만 처리됩니다. 외부 서버로 전송되지 않습니다.
+  </footer>
+</div>
+</body>
+</html>
